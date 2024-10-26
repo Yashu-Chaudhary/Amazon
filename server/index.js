@@ -1,6 +1,5 @@
 const express = require('express');
 const mongooes = require('mongoose');
-
 // imports from files
 const authRouter = require('./routes/auth')
 
@@ -10,7 +9,7 @@ const PORT = 3000;
 const uri = "mongodb+srv://yashusky232:yashu777@cluster0.gp2wh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 // middleware
-app.use(express.json);
+app.use(express.json());
 app.use(authRouter); 
 
 // connection to mogoDb
