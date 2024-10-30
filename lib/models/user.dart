@@ -7,15 +7,17 @@ class User {
   final String password;
   final String email;
   final String address;
+  final String token;
   final String type;
 
   User({
     required this.id,
     required this.name,
     required this.password,
+    required this.email,
     required this.address,
+    required this.token,
     required this.type,
-    required  this.email,
   });
 
   Map<String, dynamic> toMap() {
@@ -25,6 +27,7 @@ class User {
       'password': password,
       'email': email,
       'address': address,
+      'token': token,
       'type': type,
     };
   }
@@ -36,6 +39,7 @@ class User {
       password: map['password'] as String,
       email: map['email'] as String,
       address: map['address'] as String,
+      token: map['token'] ?? '',
       type: map['type'] as String,
     );
   }
@@ -43,5 +47,5 @@ class User {
   String toJson() => json.encode(toMap());
 
   factory User.fromJson(String source) =>
-      User.fromMap(json.decode(source) as Map<String, dynamic>);
+      User.fromMap(json.decode(source) );
 }
