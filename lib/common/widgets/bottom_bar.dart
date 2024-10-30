@@ -1,5 +1,6 @@
 import 'package:amazon/constants/global_variables.dart';
 import 'package:amazon/features/accounts/screens/account_screen.dart';
+import 'package:amazon/features/auth/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -16,7 +17,7 @@ class _BottomBarState extends State<BottomBar> {
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
   List<Widget> pages = [
-    Text('HomePage'),
+    HomeScreen(),
     AccountScreen(),
     Text('Cart Page')
   ];
