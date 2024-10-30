@@ -53,10 +53,10 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: BottomBar()
-        //  Provider.of<UserProvider>(context).user.token.isNotEmpty
-        //   ? HomeScreen()
-        //   : AuthScreen(),
+      home: 
+         Provider.of<UserProvider>(context).user.token.isNotEmpty
+          ? HomeScreen()
+          : AuthScreen(),
       
     );
   }
