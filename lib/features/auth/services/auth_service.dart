@@ -27,6 +27,7 @@ class AuthService {
         type: '',
         email: email,
         token: '',
+        // cart:[]
       );
       http.Response res = await http.post(Uri.parse('$uri/api/signup'),
           body: user.toJson(),
@@ -76,7 +77,10 @@ class AuthService {
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
 
           Navigator.pushNamedAndRemoveUntil(
-              context, BottomBar.routeName, (route) => false);
+            context,
+            BottomBar.routeName,
+            (route) => false,
+          );
         },
       );
     } catch (e) {
@@ -105,7 +109,6 @@ class AuthService {
       var response = jsonDecode(tokenRes.body);
 
       if (response == true) {
-        // get user data
         http.Response userRes = await http.get(
           Uri.parse('$uri/'),
           headers: <String, String>{
@@ -115,13 +118,10 @@ class AuthService {
         );
 
         var userProvider = Provider.of<UserProvider>(context, listen: false);
-        final userData = jsonDecode(userRes.body);
-        userProvider.setUser(userData);
+        userProvider.setUser(userRes.body);
       }
     } catch (e) {
-      
-        showSnackBar(context, e.toString());
-      
+      showSnackBar(context, e.toString());
     }
   }
 }

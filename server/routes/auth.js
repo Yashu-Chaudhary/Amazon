@@ -48,7 +48,8 @@ authRoute.post("/api/signin", async (req, res) => {
         if (!isMatched) {
             return res.status(400).json({ msg: "Incorrect Password" });
         }
-        const token = jwt.sign({ id: user._id }, "passwordKey",{expiresIn:"1h"} );
+        const token = jwt.sign({ id: user._id }, "passwordKey", );
+
        
         res.json({ token, ...user._doc });
     } catch (e) {
@@ -59,8 +60,9 @@ authRoute.post("/api/signin", async (req, res) => {
 // ------------------token validation-------------------------
 authRoute.post("/tokenIsValid", async (req, res) => {
     try {
-        console.log('0 is working')
+        
         const token = req.header('x-auth-token');
+
         if (!token) return res.json(false);
         const verified = jwt.verify(token, 'passwordKey');
         if (!verified) return res.json(false);
@@ -81,7 +83,7 @@ authRoute.post("/tokenIsValid", async (req, res) => {
 // --------------get user data-----------
 authRoute.get('/', auth, async (req, res) => {
     const user = await User.findById(req.user);
-    res.json({ ...User._doc, token: req.token });
+    res.json({ ...user._doc, token: req.token });
 
 });
 

@@ -1,5 +1,6 @@
 import 'package:amazon/common/widgets/bottom_bar.dart';
 import 'package:amazon/constants/global_variables.dart';
+import 'package:amazon/features/Admin/screen/admin_screen.dart';
 import 'package:amazon/features/auth/screens/auth_screen.dart';
 import 'package:amazon/features/auth/services/auth_service.dart';
 import 'package:amazon/providers/user_provider.dart';
@@ -52,11 +53,11 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: 
-         Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? BottomBar()
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+          ? Provider.of<UserProvider>(context).user.type == 'user'
+              ? BottomBar()
+              : AdminScreen()
           : AuthScreen(),
-      
     );
   }
 }
