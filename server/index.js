@@ -1,7 +1,8 @@
 const express = require('express');
 const mongooes = require('mongoose');
 // imports from files
-const authRouter = require('./routes/auth')
+const authRouter = require('./routes/auth');
+const adminRouter = require('./routes/admin');
 
 // intializations
 const app = express();
@@ -11,6 +12,7 @@ const uri = "mongodb+srv://yashusky232:yashu777@cluster0.gp2wh.mongodb.net/?retr
 // middleware
 app.use(express.json());
 app.use(authRouter); 
+app.use(adminRouter);
 
 // connection to mogoDb
 mongooes.connect(uri)

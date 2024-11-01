@@ -3,6 +3,7 @@ import 'package:amazon/common/widgets/custom_button.dart';
 import 'package:amazon/common/widgets/custom_textfield.dart';
 import 'package:amazon/constants/global_variables.dart';
 import 'package:amazon/constants/utils.dart';
+import 'package:amazon/features/Admin/services/admin_services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController discriptionController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
+  final AdminServices adminServices = AdminServices();
+
   String category = 'Mobiles';
+  List<File> images = [];
+  final _addProductFormKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     super.dispose();
@@ -31,8 +37,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
     quantityController.dispose();
   }
 
-  List<File> images = [];
-
   List<String> productCategories = [
     'Mobiles',
     'Essentials',
@@ -40,6 +44,21 @@ class _AddProductScreenState extends State<AddProductScreen> {
     'Books',
     'Fashion',
   ];
+
+  // bind with authServices
+  void sellProduct() {
+    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
+      adminServices.sellProduct(
+        context: context,
+        name: productNameController.text,
+        description: discriptionController.text,
+        price: double.parse(priceController.text),
+        quantity: double.parse(quantityController.text),
+        category: category,
+        images: images,
+      );
+    }
+  }
 
   void selectImages() async {
     var res = await pickImages();
@@ -67,6 +86,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: _addProductFormKey,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
@@ -160,7 +180,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     icon: Icon(Icons.keyboard_arrow_down),
                   ),
                 ),
-                CustomButton(text: 'Sell', onTap: () {})
+                CustomButton(
+                  text: 'Sell',
+                  onTap: sellProduct,
+                )
               ],
             ),
           ),
